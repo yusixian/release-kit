@@ -1,0 +1,54 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`apply after an interruption > finishes without bumping again when versions and notes were already written 1`] = `
+{
+  "applied": true,
+  "changes": [
+    {
+      "docs": null,
+      "id": "save-feedback",
+      "kind": "fix",
+      "pr": null,
+    },
+    {
+      "docs": "updated",
+      "id": "topic-yaml",
+      "kind": "breaking",
+      "pr": 128,
+    },
+  ],
+  "command": "apply",
+  "current": "0.15.0",
+  "dryRun": false,
+  "files": [
+    {
+      "action": "unchanged",
+      "path": "package.json",
+    },
+    {
+      "action": "unchanged",
+      "path": "docs/releases/v0.15.0.md",
+    },
+    {
+      "action": "deleted",
+      "path": ".release/changes/save-feedback.md",
+    },
+    {
+      "action": "deleted",
+      "path": ".release/changes/topic-yaml.md",
+    },
+  ],
+  "issues": [],
+  "nextSteps": [
+    "git add package.json docs/releases/v0.15.0.md .release/changes",
+    "git commit -m "chore(release): v0.15.0"",
+    "git tag v0.15.0",
+  ],
+  "notesPath": "docs/releases/v0.15.0.md",
+  "ok": true,
+  "resumed": true,
+  "schemaVersion": 1,
+  "tag": "v0.15.0",
+  "version": "0.15.0",
+}
+`;

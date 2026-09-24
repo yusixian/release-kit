@@ -1,0 +1,52 @@
+{
+  "name": "@coszone/release-kit",
+  "version": "0.1.0",
+  "description": "Agent-friendly versioning and release notes from change fragments",
+  "keywords": [
+    "release",
+    "changelog",
+    "semver",
+    "release-notes",
+    "agent",
+    "cli"
+  ],
+  "license": "MIT",
+  "author": "yusixian",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yusixian/release-kit.git"
+  },
+  "type": "module",
+  "bin": {
+    "release-kit": "./dist/cli.mjs"
+  },
+  "files": [
+    "dist",
+    "schema"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsdown && node scripts/gen-schema.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint --deny-warnings"
+  },
+  "packageManager": "pnpm@10.28.2",
+  "dependencies": {
+    "picomatch": "^4.0.7",
+    "semver": "^7.8.5",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "@types/picomatch": "^4.0.3",
+    "@types/semver": "^7.8.0",
+    "oxlint": "^1.85.0",
+    "tsdown": "^0.23.0",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1"
+  }
+}

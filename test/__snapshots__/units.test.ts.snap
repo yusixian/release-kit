@@ -1,0 +1,59 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`config > reports schema errors with lines 1`] = `
+[
+  {
+    "code": "RK002",
+    "file": "release-kit.yaml",
+    "fix": "Edit "kinds.feat.bump" in release-kit.yaml; run "release-kit describe --json" for the config schema",
+    "line": 4,
+    "message": "kinds.feat.bump: Invalid option: expected one of "none"|"patch"|"minor"|"major"",
+    "severity": "error",
+  },
+]
+`;
+
+exports[`fragments > flags frontmatter, field, body and upgrade problems 1`] = `
+[
+  {
+    "code": "RK021",
+    "file": ".release/changes/x.md",
+    "fix": "Set "pr" to the pull request number, e.g. "pr: 128", or remove it",
+    "line": 4,
+    "message": ""pr" must be a positive integer, got "abc"",
+    "severity": "error",
+  },
+  {
+    "code": "RK014",
+    "file": ".release/changes/x.md",
+    "fix": "Set "docs" to one of: updated, not-needed",
+    "line": 3,
+    "message": ""docs" must be one of updated, not-needed, got "maybe"",
+    "severity": "error",
+  },
+  {
+    "code": "RK016",
+    "file": ".release/changes/x.md",
+    "fix": "Remove "owner" or declare it under "fields" in release-kit.yaml",
+    "line": 5,
+    "message": "Field "owner" is not declared in the config",
+    "severity": "warning",
+  },
+  {
+    "code": "RK017",
+    "file": ".release/changes/x.md",
+    "fix": "Add a "## Upgrade" (or "## 升级") section explaining how users migrate",
+    "line": 8,
+    "message": "Kind "breaking" requires an upgrade section",
+    "severity": "error",
+  },
+  {
+    "code": "RK020",
+    "file": ".release/changes/x.md",
+    "fix": "Describe what users notice instead of file paths or function names",
+    "line": 8,
+    "message": "Body line matches discouraged pattern \\bsrc/",
+    "severity": "warning",
+  },
+]
+`;

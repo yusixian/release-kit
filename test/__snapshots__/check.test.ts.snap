@@ -1,0 +1,105 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`check > flags a PR title that does not match the fragment kind 1`] = `
+{
+  "checked": {
+    "base": "main",
+    "changedFiles": 1,
+    "fragments": [
+      "save-feedback",
+    ],
+    "pr": null,
+    "prFill": [],
+    "prFragments": [
+      "save-feedback",
+    ],
+    "prTitle": "feat: offline feedback",
+  },
+  "command": "check",
+  "issues": [
+    {
+      "code": "RK012",
+      "file": ".release/changes/save-feedback.md",
+      "fix": "Change the kind to feat, or rename the PR to "fix: …"",
+      "line": 2,
+      "message": "PR title type is "feat", but fragment kind is "fix"",
+      "severity": "error",
+    },
+  ],
+  "ok": false,
+  "schemaVersion": 1,
+}
+`;
+
+exports[`check > passes with valid fragments 1`] = `
+{
+  "checked": {
+    "base": "main",
+    "changedFiles": 2,
+    "fragments": [
+      "topic-yaml",
+    ],
+    "pr": null,
+    "prFill": [],
+    "prFragments": [
+      "topic-yaml",
+    ],
+    "prTitle": "feat: topics from YAML",
+  },
+  "command": "check",
+  "issues": [],
+  "ok": true,
+  "schemaVersion": 1,
+}
+`;
+
+exports[`check > prints human-readable issues to stderr 1`] = `
+"error RK011 .release/changes/a.md:2 Unknown kind "feature"
+  fix: Set "kind" to one of: breaking, feat, fix, perf, internal
+"
+`;
+
+exports[`check > reports an unknown base ref as an environment error 1`] = `
+{
+  "command": "check",
+  "issues": [
+    {
+      "code": "RK041",
+      "file": null,
+      "fix": "git fetch origin main",
+      "line": null,
+      "message": "Git ref "origin/main" not found",
+      "severity": "error",
+    },
+  ],
+  "ok": false,
+  "schemaVersion": 1,
+}
+`;
+
+exports[`check > requires a fragment when source paths change 1`] = `
+{
+  "checked": {
+    "base": "main",
+    "changedFiles": 1,
+    "fragments": [],
+    "pr": null,
+    "prFill": [],
+    "prFragments": [],
+    "prTitle": null,
+  },
+  "command": "check",
+  "issues": [
+    {
+      "code": "RK030",
+      "file": "src/index.ts",
+      "fix": "release-kit add --kind <kind> --body "<what users notice>"; use --kind internal for changes users cannot notice",
+      "line": null,
+      "message": "Changes under src/** need a change fragment (first: src/index.ts)",
+      "severity": "error",
+    },
+  ],
+  "ok": false,
+  "schemaVersion": 1,
+}
+`;

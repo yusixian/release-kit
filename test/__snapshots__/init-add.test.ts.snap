@@ -1,0 +1,204 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`add > creates a fragment with an automatic id and is idempotent 1`] = `
+{
+  "action": "created",
+  "command": "add",
+  "file": ".release/changes/topics-can-be-created-from-yaml-7603d1.md",
+  "frontmatter": {
+    "docs": "updated",
+    "kind": "feat",
+    "pr": 128,
+  },
+  "id": "topics-can-be-created-from-yaml-7603d1",
+  "issues": [],
+  "ok": true,
+  "prSource": "option",
+  "schemaVersion": 1,
+}
+`;
+
+exports[`add > needs a config (exit code 3) 1`] = `
+{
+  "command": "add",
+  "issues": [
+    {
+      "code": "RK001",
+      "file": null,
+      "fix": "release-kit init --preset library",
+      "line": null,
+      "message": "release-kit.yaml not found in <root>",
+      "severity": "error",
+    },
+  ],
+  "ok": false,
+  "schemaVersion": 1,
+}
+`;
+
+exports[`add > refuses invalid fragments without writing them 1`] = `
+{
+  "command": "add",
+  "issues": [
+    {
+      "code": "RK015",
+      "file": ".release/changes/changed-things-5c78d4.md",
+      "fix": "Pass --field docs=<updated|not-needed>",
+      "line": 3,
+      "message": "Missing field "docs" required for kind "breaking"",
+      "severity": "error",
+    },
+    {
+      "code": "RK017",
+      "file": ".release/changes/changed-things-5c78d4.md",
+      "fix": "Add a "## Upgrade" (or "## 升级") section explaining how users migrate",
+      "line": 5,
+      "message": "Kind "breaking" requires an upgrade section",
+      "severity": "error",
+    },
+  ],
+  "ok": false,
+  "schemaVersion": 1,
+}
+`;
+
+exports[`init > creates config, fragment dir, AGENTS.md block and skill > AGENTS.md 1`] = `
+"<!-- release-kit:start -->
+## Release notes (release-kit)
+
+Every user-visible change needs a change fragment in \`.release/changes/\`.
+
+- A fragment is required when a PR touches \`src/**\`, \`app/**\`, \`apps/**\`, \`packages/**\`, \`public/**\`, unless the PR title type is \`docs\`, \`chore\`, \`test\`, \`ci\`, \`build\`, \`style\`.
+- Write the body for users: what they notice, not file paths or function names.
+- Kinds that bump major need a \`## Upgrade\` (or \`## 升级\`) section with migration steps.
+- The PR title uses Conventional Commits and its type matches the highest fragment kind (\`feat!:\` for breaking).
+- Field \`docs\` (updated | not-needed): required for feat, breaking. Pass it with \`--field docs=<value>\`.
+
+| kind | bump | use for |
+|---|---|---|
+| \`breaking\` | major | Breaking changes |
+| \`feat\` | minor | Features |
+| \`fix\` | patch | Bug fixes |
+| \`perf\` | patch | Performance |
+| \`internal\` | none | Not shown in release notes |
+
+\`\`\`sh
+release-kit add --kind feat --field docs=updated --body "<what users notice>"
+release-kit add --kind fix --body "<what users notice>"
+release-kit check --base origin/main --pr-title "fix: keep feedback offline"
+\`\`\`
+
+Run \`release-kit check\` before committing and fix every issue using its \`fix\` hint. Use \`--json\` for machine-readable output and \`release-kit describe --json\` for the full command and schema reference. If \`release-kit\` is not installed, use \`npx @coszone/release-kit\`.
+<!-- release-kit:end -->
+"
+`;
+
+exports[`init > creates config, fragment dir, AGENTS.md block and skill > release-kit.yaml 1`] = `
+"# yaml-language-server: $schema=https://unpkg.com/@coszone/release-kit/schema/config.json
+version: 1
+changes: .release/changes
+notes:
+  dir: docs/releases
+  file: v{version}.md
+  template: default-en
+versioning:
+  files:
+    - path: package.json
+      key: version
+  tag: v{version}
+  pre1:
+    breaking: minor
+  channels:
+    alpha:
+      strategy: tag-only
+kinds:
+  breaking:
+    bump: major
+    require:
+      - upgrade
+  feat:
+    bump: minor
+  fix:
+    bump: patch
+  perf:
+    bump: patch
+  internal:
+    bump: none
+    notes: false
+fields:
+  docs:
+    enum:
+      - updated
+      - not-needed
+    requiredFor:
+      - feat
+      - breaking
+checks:
+  requireChange:
+    paths:
+      - src/**
+      - app/**
+      - apps/**
+      - packages/**
+      - public/**
+    exemptTitleTypes:
+      - docs
+      - chore
+      - test
+      - ci
+      - build
+      - style
+  prTitle: conventional
+  body:
+    maxLength: 400
+    discourage:
+      - \\bsrc/
+      - \\.[jt]sx?\\b
+"
+`;
+
+exports[`init > creates config, fragment dir, AGENTS.md block and skill 1`] = `
+{
+  "command": "init",
+  "files": [
+    {
+      "action": "created",
+      "path": "release-kit.yaml",
+    },
+    {
+      "action": "created",
+      "path": ".release/changes/.gitkeep",
+    },
+    {
+      "action": "created",
+      "path": "AGENTS.md",
+    },
+    {
+      "action": "created",
+      "path": "skills/release-kit/SKILL.md",
+    },
+  ],
+  "issues": [],
+  "ok": true,
+  "preset": "web",
+  "schemaVersion": 1,
+}
+`;
+
+exports[`init > rejects an unknown preset with exit code 2 1`] = `
+{
+  "command": "init",
+  "issues": [
+    {
+      "code": "RK902",
+      "file": null,
+      "fix": "release-kit init --preset library",
+      "line": null,
+      "message": "--preset must be one of: library, web, electron",
+      "severity": "error",
+    },
+  ],
+  "ok": false,
+  "schemaVersion": 1,
+}
+`;

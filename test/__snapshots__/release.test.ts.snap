@@ -1,0 +1,1057 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`apply > dry-run writes nothing 1`] = `
+{
+  "applied": false,
+  "bump": "minor",
+  "changes": [
+    {
+      "docs": null,
+      "id": "refactor",
+      "kind": "internal",
+      "pr": null,
+    },
+    {
+      "docs": "not-needed",
+      "id": "save-feedback",
+      "kind": "fix",
+      "pr": 131,
+    },
+    {
+      "docs": "updated",
+      "id": "topic-yaml",
+      "kind": "breaking",
+      "pr": 128,
+    },
+  ],
+  "channel": "stable",
+  "command": "apply",
+  "current": "0.14.2",
+  "dryRun": true,
+  "files": [
+    {
+      "action": "updated",
+      "path": "package.json",
+    },
+    {
+      "action": "created",
+      "path": "docs/releases/v0.15.0.md",
+    },
+    {
+      "action": "deleted",
+      "path": ".release/changes/refactor.md",
+    },
+    {
+      "action": "deleted",
+      "path": ".release/changes/save-feedback.md",
+    },
+    {
+      "action": "deleted",
+      "path": ".release/changes/topic-yaml.md",
+    },
+  ],
+  "issues": [],
+  "next": "0.15.0",
+  "nextSteps": [
+    "git add package.json docs/releases/v0.15.0.md .release/changes",
+    "git commit -m "chore(release): v0.15.0"",
+    "git tag v0.15.0",
+  ],
+  "notes": {
+    "content": "# 0.15.0
+
+Released 2026-09-24
+
+## Breaking changes
+
+- \`topics\` in \`harness.yaml\` are now declared per project. (#128)
+
+## Bug fixes
+
+- Saving feedback no longer fails offline. (#131)
+
+## Upgrade guide
+
+### \`topics\` in \`harness.yaml\` are now declared per project.
+
+Move \`topics.<name>\` to \`projects.<name>.topic\`.
+",
+    "path": "docs/releases/v0.15.0.md",
+  },
+  "notesPath": "docs/releases/v0.15.0.md",
+  "ok": true,
+  "pre1Adjusted": true,
+  "reason": [
+    {
+      "bump": "major",
+      "change": "topic-yaml",
+      "effective": "minor",
+      "kind": "breaking",
+    },
+  ],
+  "resumed": false,
+  "schemaVersion": 1,
+  "source": "fragments",
+  "tag": "v0.15.0",
+  "version": "0.15.0",
+}
+`;
+
+exports[`apply > renders the default-zh template > v0.15.0.zh.md 1`] = `
+"# 0.15.0
+
+发布日期：2026-09-24
+
+## 不兼容变更
+
+- \`topics\` in \`harness.yaml\` are now declared per project.（#128）
+
+## 修复
+
+- Saving feedback no longer fails offline.（#131）
+
+## 升级指南
+
+### \`topics\` in \`harness.yaml\` are now declared per project.
+
+Move \`topics.<name>\` to \`projects.<name>.topic\`.
+"
+`;
+
+exports[`apply > writes version and notes, deletes fragments, and is safe to re-run > v0.15.0.md 1`] = `
+"# 0.15.0
+
+Released 2026-09-24
+
+## Breaking changes
+
+- \`topics\` in \`harness.yaml\` are now declared per project. (#128)
+
+## Bug fixes
+
+- Saving feedback no longer fails offline. (#131)
+
+## Upgrade guide
+
+### \`topics\` in \`harness.yaml\` are now declared per project.
+
+Move \`topics.<name>\` to \`projects.<name>.topic\`.
+"
+`;
+
+exports[`apply > writes version and notes, deletes fragments, and is safe to re-run 1`] = `
+"Released 0.14.2 -> 0.15.0 (minor, 0.x rule applied)
+  updated package.json
+  created docs/releases/v0.15.0.md
+  deleted .release/changes/refactor.md
+  deleted .release/changes/save-feedback.md
+  deleted .release/changes/topic-yaml.md
+
+Next steps:
+  git add package.json docs/releases/v0.15.0.md .release/changes
+  git commit -m "chore(release): v0.15.0"
+  git tag v0.15.0
+"
+`;
+
+exports[`cli > uses stable exit codes for usage errors 1`] = `
+{
+  "command": null,
+  "issues": [
+    {
+      "code": "RK900",
+      "file": null,
+      "fix": "Use one of: init, add, check, plan, preview, apply, describe",
+      "line": null,
+      "message": "Unknown command "launch"",
+      "severity": "error",
+    },
+  ],
+  "ok": false,
+  "schemaVersion": 1,
+}
+`;
+
+exports[`describe > describes commands and schemas 1`] = `
+{
+  "command": "describe",
+  "commands": [
+    {
+      "examples": [
+        "release-kit init --preset web --agents --json",
+      ],
+      "name": "init",
+      "options": [
+        {
+          "default": "library",
+          "description": "Starting configuration",
+          "enum": [
+            "library",
+            "web",
+            "electron",
+          ],
+          "multiple": false,
+          "name": "--preset",
+          "required": false,
+          "type": "string",
+          "valueName": "name",
+        },
+        {
+          "description": "Also write the AGENTS.md block and skills/release-kit/SKILL.md",
+          "multiple": false,
+          "name": "--agents",
+          "required": false,
+          "type": "boolean",
+        },
+      ],
+      "summary": "Create release-kit.yaml and the fragment directory; --agents also writes an AGENTS.md block and an Agent Skill",
+      "writesFiles": "yes",
+    },
+    {
+      "examples": [
+        "release-kit add --kind fix --body "Saving feedback no longer fails offline."",
+        "release-kit add --kind feat --field docs=updated --body-file - < change.md",
+      ],
+      "name": "add",
+      "options": [
+        {
+          "description": "Change kind declared in release-kit.yaml",
+          "multiple": false,
+          "name": "--kind",
+          "required": true,
+          "type": "string",
+          "valueName": "kind",
+        },
+        {
+          "description": "User-facing description (Markdown)",
+          "multiple": false,
+          "name": "--body",
+          "required": false,
+          "type": "string",
+          "valueName": "text",
+        },
+        {
+          "description": "Read the body from a file, or "-" for stdin",
+          "multiple": false,
+          "name": "--body-file",
+          "required": false,
+          "type": "string",
+          "valueName": "path",
+        },
+        {
+          "description": "Fragment id (file name); defaults to a slug plus a content hash",
+          "multiple": false,
+          "name": "--id",
+          "required": false,
+          "type": "string",
+          "valueName": "id",
+        },
+        {
+          "description": "Pull request number; defaults to RELEASE_KIT_PR or a pull_request GITHUB_REF",
+          "multiple": false,
+          "name": "--pr",
+          "required": false,
+          "type": "string",
+          "valueName": "number",
+        },
+        {
+          "description": "Custom frontmatter field",
+          "multiple": true,
+          "name": "--field",
+          "required": false,
+          "type": "string",
+          "valueName": "name=value",
+        },
+      ],
+      "summary": "Create a change fragment; the same id and content never produce a duplicate",
+      "writesFiles": "yes",
+    },
+    {
+      "examples": [
+        "release-kit check",
+        "release-kit check --base origin/main --pr-title "feat: add topic YAML" --json",
+      ],
+      "name": "check",
+      "options": [
+        {
+          "description": "Compare against this git ref to find the PR's changed files and fragments",
+          "multiple": false,
+          "name": "--base",
+          "required": false,
+          "type": "string",
+          "valueName": "ref",
+        },
+        {
+          "description": "PR title to check against fragment kinds (Conventional Commits)",
+          "multiple": false,
+          "name": "--pr-title",
+          "required": false,
+          "type": "string",
+          "valueName": "title",
+        },
+      ],
+      "summary": "Validate fragments, PR title consistency, required fragments for changed paths, and body rules",
+      "writesFiles": "no",
+    },
+    {
+      "examples": [
+        "release-kit plan --json",
+        "release-kit plan --channel alpha --json",
+      ],
+      "name": "plan",
+      "options": [
+        {
+          "default": "stable",
+          "description": "stable or a prerelease channel from versioning.channels",
+          "multiple": false,
+          "name": "--channel",
+          "required": false,
+          "type": "string",
+          "valueName": "name",
+        },
+      ],
+      "summary": "Compute the next version from change fragments and explain why",
+      "writesFiles": "no",
+    },
+    {
+      "examples": [
+        "release-kit preview --channel alpha --json",
+        "release-kit preview --channel alpha --write-version",
+      ],
+      "name": "preview",
+      "options": [
+        {
+          "description": "Channel to preview: stable or a configured prerelease channel",
+          "multiple": false,
+          "name": "--channel",
+          "required": true,
+          "type": "string",
+          "valueName": "name",
+        },
+        {
+          "description": "Write the previewed version into versioning.files (for CI builds; not meant to be committed)",
+          "multiple": false,
+          "name": "--write-version",
+          "required": false,
+          "type": "boolean",
+        },
+      ],
+      "summary": "Print the next version for a channel (e.g. X.Y.Z-alpha.N from git tags) with rendered notes",
+      "writesFiles": "optional",
+    },
+    {
+      "examples": [
+        "release-kit apply --dry-run --json",
+        "release-kit apply",
+        "release-kit apply --version 1.0.0",
+      ],
+      "name": "apply",
+      "options": [
+        {
+          "description": "Release this exact version instead of the computed one (the only way to reach 1.0.0 from 0.x)",
+          "multiple": false,
+          "name": "--version",
+          "required": false,
+          "type": "string",
+          "valueName": "semver",
+        },
+        {
+          "description": "Show what would change without writing anything",
+          "multiple": false,
+          "name": "--dry-run",
+          "required": false,
+          "type": "boolean",
+        },
+      ],
+      "summary": "Write the next stable version and release notes, then delete consumed fragments (safe to re-run)",
+      "writesFiles": "yes",
+    },
+    {
+      "examples": [
+        "release-kit describe --json",
+      ],
+      "name": "describe",
+      "options": [],
+      "summary": "Print commands, options, exit codes, issue codes, and the config and fragment JSON Schemas",
+      "writesFiles": "no",
+    },
+  ],
+  "exitCodes": {
+    "0": "ok",
+    "1": "validation failed",
+    "2": "usage error",
+    "3": "environment error",
+  },
+  "fragmentSchemaSource": "project-config",
+  "globalOptions": [
+    {
+      "description": "Print machine-readable JSON (schemaVersion 1) to stdout",
+      "multiple": false,
+      "name": "--json",
+      "required": false,
+      "type": "boolean",
+    },
+    {
+      "description": "Repository root (defaults to the current directory)",
+      "multiple": false,
+      "name": "--cwd",
+      "required": false,
+      "type": "string",
+      "valueName": "dir",
+    },
+    {
+      "description": "Show help for the command",
+      "multiple": false,
+      "name": "--help",
+      "required": false,
+      "type": "boolean",
+    },
+  ],
+  "issueCodes": [
+    {
+      "code": "RK001",
+      "title": "Config file not found",
+    },
+    {
+      "code": "RK002",
+      "title": "Config does not match the schema",
+    },
+    {
+      "code": "RK003",
+      "title": "Config is not valid YAML",
+    },
+    {
+      "code": "RK004",
+      "title": "Notes template not found or invalid",
+    },
+    {
+      "code": "RK010",
+      "title": "Fragment frontmatter is missing or invalid",
+    },
+    {
+      "code": "RK011",
+      "title": "Fragment kind is missing or unknown",
+    },
+    {
+      "code": "RK012",
+      "title": "PR title type does not match the fragment kinds",
+    },
+    {
+      "code": "RK013",
+      "title": "PR title is not a Conventional Commits title",
+    },
+    {
+      "code": "RK014",
+      "title": "Fragment field has a value outside its enum",
+    },
+    {
+      "code": "RK015",
+      "title": "Fragment is missing a required field",
+    },
+    {
+      "code": "RK016",
+      "title": "Fragment has a field that is not declared in the config",
+    },
+    {
+      "code": "RK017",
+      "title": "Fragment is missing its upgrade section",
+    },
+    {
+      "code": "RK018",
+      "title": "Fragment body is empty",
+    },
+    {
+      "code": "RK019",
+      "title": "Fragment body exceeds the maximum length",
+    },
+    {
+      "code": "RK020",
+      "title": "Fragment body mentions implementation details",
+    },
+    {
+      "code": "RK021",
+      "title": "Fragment pr is not a positive integer",
+    },
+    {
+      "code": "RK030",
+      "title": "Change fragment required but missing",
+    },
+    {
+      "code": "RK031",
+      "title": "PR title implies no release but fragments bump the version",
+    },
+    {
+      "code": "RK040",
+      "title": "Git is unavailable or this is not a git repository",
+    },
+    {
+      "code": "RK041",
+      "title": "Git ref not found",
+    },
+    {
+      "code": "RK042",
+      "title": "No release tags found",
+    },
+    {
+      "code": "RK043",
+      "title": "Version file is behind the latest release tag",
+    },
+    {
+      "code": "RK050",
+      "title": "Version file is missing or unreadable",
+    },
+    {
+      "code": "RK051",
+      "title": "Notes file already exists with different content",
+    },
+    {
+      "code": "RK900",
+      "title": "Unknown command or option",
+    },
+    {
+      "code": "RK901",
+      "title": "Unknown channel",
+    },
+    {
+      "code": "RK902",
+      "title": "Invalid or missing argument",
+    },
+    {
+      "code": "RK903",
+      "title": "Invalid version",
+    },
+    {
+      "code": "RK999",
+      "title": "Internal error",
+    },
+  ],
+  "issueShape": [
+    "code",
+    "severity",
+    "file",
+    "line",
+    "message",
+    "fix",
+  ],
+  "issues": [],
+  "name": "release-kit",
+  "ok": true,
+  "outputSchemaVersion": 1,
+  "project": {
+    "changes": ".release/changes",
+    "channels": [
+      "stable",
+      "alpha",
+      "beta",
+      "rc",
+    ],
+    "kinds": {
+      "breaking": {
+        "bump": "major",
+        "notes": true,
+        "requiresUpgrade": true,
+      },
+      "feat": {
+        "bump": "minor",
+        "notes": true,
+        "requiresUpgrade": false,
+      },
+      "fix": {
+        "bump": "patch",
+        "notes": true,
+        "requiresUpgrade": false,
+      },
+      "internal": {
+        "bump": "none",
+        "notes": false,
+        "requiresUpgrade": false,
+      },
+      "perf": {
+        "bump": "patch",
+        "notes": true,
+        "requiresUpgrade": false,
+      },
+    },
+    "tag": "v{version}",
+  },
+  "schemaVersion": 1,
+  "schemas": {
+    "config": {
+      "$id": "https://unpkg.com/@coszone/release-kit/schema/config.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "properties": {
+        "changes": {
+          "default": ".release/changes",
+          "description": "Directory holding change fragments",
+          "type": "string",
+        },
+        "checks": {
+          "additionalProperties": false,
+          "default": {},
+          "properties": {
+            "body": {
+              "additionalProperties": false,
+              "default": {},
+              "properties": {
+                "discourage": {
+                  "default": [],
+                  "description": "Regular expressions that trigger a warning",
+                  "items": {
+                    "type": "string",
+                  },
+                  "type": "array",
+                },
+                "maxLength": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991,
+                  "type": "integer",
+                },
+              },
+              "type": "object",
+            },
+            "prTitle": {
+              "default": "conventional",
+              "description": "conventional: PR title type must match the fragment kinds",
+              "enum": [
+                "conventional",
+                "off",
+              ],
+              "type": "string",
+            },
+            "requireChange": {
+              "additionalProperties": false,
+              "properties": {
+                "exemptTitleTypes": {
+                  "default": [
+                    "docs",
+                    "chore",
+                    "test",
+                    "ci",
+                  ],
+                  "items": {
+                    "type": "string",
+                  },
+                  "type": "array",
+                },
+                "paths": {
+                  "default": [],
+                  "description": "Globs that require a fragment when changed",
+                  "items": {
+                    "type": "string",
+                  },
+                  "type": "array",
+                },
+              },
+              "type": "object",
+            },
+          },
+          "type": "object",
+        },
+        "fields": {
+          "additionalProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "description": {
+                "type": "string",
+              },
+              "enum": {
+                "description": "Allowed values",
+                "items": {
+                  "type": "string",
+                },
+                "minItems": 1,
+                "type": "array",
+              },
+              "required": {
+                "default": false,
+                "description": "Required for every kind",
+                "type": "boolean",
+              },
+              "requiredFor": {
+                "default": [],
+                "description": "Kinds that require this field",
+                "items": {
+                  "type": "string",
+                },
+                "type": "array",
+              },
+            },
+            "type": "object",
+          },
+          "default": {},
+          "description": "Custom frontmatter fields",
+          "propertyNames": {
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "type": "string",
+          },
+          "type": "object",
+        },
+        "kinds": {
+          "additionalProperties": {
+            "additionalProperties": false,
+            "properties": {
+              "bump": {
+                "description": "Version level this kind triggers",
+                "enum": [
+                  "none",
+                  "patch",
+                  "minor",
+                  "major",
+                ],
+                "type": "string",
+              },
+              "notes": {
+                "default": true,
+                "description": "Include this kind in release notes",
+                "type": "boolean",
+              },
+              "require": {
+                "description": "Required body sections; defaults to [upgrade] for major bumps",
+                "items": {
+                  "enum": [
+                    "upgrade",
+                  ],
+                  "type": "string",
+                },
+                "type": "array",
+              },
+              "title": {
+                "description": "Section heading in release notes; defaults to the template language",
+                "type": "string",
+              },
+            },
+            "required": [
+              "bump",
+            ],
+            "type": "object",
+          },
+          "default": {
+            "breaking": {
+              "bump": "major",
+              "require": [
+                "upgrade",
+              ],
+            },
+            "feat": {
+              "bump": "minor",
+            },
+            "fix": {
+              "bump": "patch",
+            },
+            "internal": {
+              "bump": "none",
+              "notes": false,
+            },
+            "perf": {
+              "bump": "patch",
+            },
+          },
+          "propertyNames": {
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "type": "string",
+          },
+          "type": "object",
+        },
+        "notes": {
+          "additionalProperties": false,
+          "default": {},
+          "properties": {
+            "dir": {
+              "default": "docs/releases",
+              "type": "string",
+            },
+            "file": {
+              "default": "v{version}.md",
+              "description": "File name template; {version} is replaced",
+              "type": "string",
+            },
+            "prFromGit": {
+              "default": true,
+              "description": "On apply, fill a missing pr from the commit that added the fragment, e.g. "feat: x (#12)"",
+              "type": "boolean",
+            },
+            "template": {
+              "default": "default-en",
+              "description": "default-en, default-zh, or a template path relative to the repository root",
+              "type": "string",
+            },
+          },
+          "type": "object",
+        },
+        "version": {
+          "const": 1,
+          "description": "Config format version",
+          "type": "number",
+        },
+        "versioning": {
+          "additionalProperties": false,
+          "default": {},
+          "properties": {
+            "channels": {
+              "additionalProperties": {
+                "additionalProperties": false,
+                "properties": {
+                  "strategy": {
+                    "default": "tag-only",
+                    "description": "tag-only: prerelease versions exist only as git tags, never committed",
+                    "enum": [
+                      "tag-only",
+                    ],
+                    "type": "string",
+                  },
+                },
+                "type": "object",
+              },
+              "default": {},
+              "description": "Prerelease channels, e.g. alpha, beta, rc",
+              "propertyNames": {
+                "pattern": "^[a-z][a-z0-9-]*$",
+                "type": "string",
+              },
+              "type": "object",
+            },
+            "files": {
+              "default": [
+                {
+                  "key": "version",
+                  "path": "package.json",
+                },
+              ],
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "key": {
+                    "default": "version",
+                    "description": "Dot path of the version key",
+                    "type": "string",
+                  },
+                  "path": {
+                    "description": "JSON file relative to the repository root",
+                    "pattern": "\\.json$",
+                    "type": "string",
+                  },
+                },
+                "required": [
+                  "path",
+                ],
+                "type": "object",
+              },
+              "type": "array",
+            },
+            "pre1": {
+              "additionalProperties": false,
+              "default": {},
+              "properties": {
+                "breaking": {
+                  "default": "minor",
+                  "description": "Effective level of major-level changes while the version is 0.x",
+                  "enum": [
+                    "minor",
+                    "patch",
+                  ],
+                  "type": "string",
+                },
+              },
+              "type": "object",
+            },
+            "tag": {
+              "default": "v{version}",
+              "description": "Git tag template; {version} is replaced",
+              "type": "string",
+            },
+          },
+          "type": "object",
+        },
+      },
+      "required": [
+        "version",
+      ],
+      "title": "release-kit configuration",
+      "type": "object",
+    },
+    "fragment": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "feat",
+                  "breaking",
+                ],
+              },
+            },
+          },
+          "then": {
+            "required": [
+              "docs",
+            ],
+          },
+        },
+      ],
+      "description": "YAML frontmatter of .release/changes/<id>.md. The Markdown body below it describes the user-visible change; kinds that require an upgrade need a "## Upgrade" or "## 升级" section.",
+      "properties": {
+        "docs": {
+          "enum": [
+            "updated",
+            "not-needed",
+          ],
+          "type": "string",
+        },
+        "kind": {
+          "description": "Change kind; maps to a version level",
+          "enum": [
+            "breaking",
+            "feat",
+            "fix",
+            "perf",
+            "internal",
+          ],
+          "type": "string",
+        },
+        "pr": {
+          "description": "Pull request number",
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "required": [
+        "kind",
+      ],
+      "title": "release-kit change fragment frontmatter",
+      "type": "object",
+    },
+  },
+  "version": "0.1.0",
+}
+`;
+
+exports[`plan > applies the 0.x rule to breaking changes 1`] = `
+{
+  "bump": "minor",
+  "changes": [
+    {
+      "docs": null,
+      "id": "refactor",
+      "kind": "internal",
+      "pr": null,
+    },
+    {
+      "docs": "not-needed",
+      "id": "save-feedback",
+      "kind": "fix",
+      "pr": 131,
+    },
+    {
+      "docs": "updated",
+      "id": "topic-yaml",
+      "kind": "breaking",
+      "pr": 128,
+    },
+  ],
+  "channel": "stable",
+  "command": "plan",
+  "current": "0.14.2",
+  "issues": [],
+  "next": "0.15.0",
+  "notesPath": "docs/releases/v0.15.0.md",
+  "ok": true,
+  "pre1Adjusted": true,
+  "reason": [
+    {
+      "bump": "major",
+      "change": "topic-yaml",
+      "effective": "minor",
+      "kind": "breaking",
+    },
+  ],
+  "schemaVersion": 1,
+  "source": "fragments",
+  "tag": "v0.15.0",
+}
+`;
+
+exports[`preview > fails with exit code 3 when no tags are present 1`] = `
+{
+  "command": "preview",
+  "issues": [
+    {
+      "code": "RK042",
+      "file": null,
+      "fix": "git fetch --tags, or tag the current release: git tag v0.14.2",
+      "line": null,
+      "message": "No tags matching "v{version}" found; prerelease numbers come from tags",
+      "severity": "error",
+    },
+  ],
+  "ok": false,
+  "schemaVersion": 1,
+}
+`;
+
+exports[`preview > numbers prereleases from existing tags 1`] = `
+{
+  "bump": "minor",
+  "changes": [
+    {
+      "docs": null,
+      "id": "refactor",
+      "kind": "internal",
+      "pr": null,
+    },
+    {
+      "docs": "not-needed",
+      "id": "save-feedback",
+      "kind": "fix",
+      "pr": 131,
+    },
+    {
+      "docs": "updated",
+      "id": "topic-yaml",
+      "kind": "breaking",
+      "pr": 128,
+    },
+  ],
+  "channel": "alpha",
+  "command": "preview",
+  "current": "0.14.2",
+  "issues": [],
+  "next": "0.15.0-alpha.2",
+  "notes": "# 0.15.0-alpha.2
+
+Released 2026-09-24
+
+## Breaking changes
+
+- \`topics\` in \`harness.yaml\` are now declared per project. (#128)
+
+## Bug fixes
+
+- Saving feedback no longer fails offline. (#131)
+
+## Upgrade guide
+
+### \`topics\` in \`harness.yaml\` are now declared per project.
+
+Move \`topics.<name>\` to \`projects.<name>.topic\`.
+",
+  "notesPath": null,
+  "ok": true,
+  "pre1Adjusted": true,
+  "reason": [
+    {
+      "bump": "major",
+      "change": "topic-yaml",
+      "effective": "minor",
+      "kind": "breaking",
+    },
+  ],
+  "schemaVersion": 1,
+  "source": "fragments",
+  "tag": "v0.15.0-alpha.2",
+  "written": [],
+}
+`;
