@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=https://unpkg.com/@coszone/release-kit/schema/config.json
+version: 1
+changes: .release/changes
+notes:
+  dir: docs/releases
+  file: v{version}.md
+  template: default-en
+versioning:
+  files:
+    - path: package.json
+      key: version
+  tag: v{version}
+  pre1:
+    breaking: minor
+  channels:
+    alpha:
+      strategy: tag-only
+    beta:
+      strategy: tag-only
+    rc:
+      strategy: tag-only
+kinds:
+  breaking:
+    bump: major
+    require:
+      - upgrade
+  feat:
+    bump: minor
+  fix:
+    bump: patch
+  perf:
+    bump: patch
+  internal:
+    bump: none
+    notes: false
+fields:
+  docs:
+    enum:
+      - updated
+      - not-needed
+    requiredFor:
+      - feat
+      - breaking
+checks:
+  requireChange:
+    paths:
+      - src/**
+    exemptTitleTypes:
+      - docs
+      - chore
+      - test
+      - ci
+      - build
+      - style
+  prTitle: conventional
+  body:
+    maxLength: 400
+    discourage:
+      - \bsrc/
+      - \.[jt]sx?\b
