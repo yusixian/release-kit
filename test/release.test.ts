@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { VERSION } from '../src/meta.ts'
 import { cli, createRepo, exists, fragment, git, read, writeFiles } from './helpers.ts'
 
 const changes = {
@@ -159,7 +160,8 @@ describe('describe', () => {
   it('describes commands and schemas', async () => {
     const result = await cli(createRepo(), ['describe', '--json'])
     expect(result.code).toBe(0)
-    expect(result.json).toMatchSnapshot()
+    expect(result.json.version).toBe(VERSION)
+    expect({ ...result.json, version: '<version>' }).toMatchSnapshot()
   })
 
   it('falls back to a generic fragment schema without config', async () => {
